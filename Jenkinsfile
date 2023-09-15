@@ -2,33 +2,35 @@ pipeline {
     agent { 
         node {
             label 'docker-agent-alpine'
-        }
-    }
-    triggers {
-        pollSCM '5 * * * *'
-    }
-    stages {
-        stage('Install HTMLTidy') {
-            steps {
-                sh 'apk add --no-cache tidyhtml'
             }
-        }
-        stage('HTML Validation') {
+      }
+      triggers {
+        pollSCM '5 * * * *'
+      }
+    stages {
+        stage('Build') {
             steps {
+                echo "Building.."
                 sh '''
-                tidy -q -e index.html
+                echo "doing build stuff.."
                 '''
             }
         }
-    }
-    post {
-        failure {
-            echo 'Pipeline failed. Take necessary actions...'
-            // You can add more post-failure actions here
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                echo "doing test stuff.."
+                '''
+            }
         }
-        success {
-            echo 'Pipeline succeeded. Perform success actions...'
-            // You can add more post-success actions here
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
+            }
         }
     }
 }
