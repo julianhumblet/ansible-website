@@ -10,13 +10,13 @@ pipeline {
     stages {
         stage('Install HTMLTidy') {
             steps {
-                sh 'apt-get install -y tidy'
+                sh 'apk add --no-cache tidyhtml'
             }
         }
         stage('HTML Validation') {
             steps {
                 sh '''
-                htmltidy -q -e index.html
+                tidy -q -e index.html
                 '''
             }
         }
