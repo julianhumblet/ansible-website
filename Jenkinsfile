@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Install HTMLTidy') {
             steps {
-                sh 'sudo apt-get install -y tidy'
+                sh 'apt-get install -y tidy'
             }
         }
         stage('HTML Validation') {
